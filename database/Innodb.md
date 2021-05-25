@@ -1,12 +1,12 @@
 # Innodb存储引擎
 
-<img src="https://dev.mysql.com/doc/refman/5.6/en/images/innodb-architecture.png" />
+<img src="Innodb.assets/innodb-architecture-1621933497598.png" />
 
 # 引擎内存架构
 
 ## 后台线程
 
-<img src="C:\Users\misaki\AppData\Roaming\Typora\typora-user-images\image-20210524170353182.png" alt="image-20210524170353182" style="zoom:80%;" />
+<img src="Innodb.assets/image-20210524170353182-1621933500985.png" alt="image-20210524170353182" style="zoom:80%;" />
 
 
 
@@ -59,13 +59,13 @@ Loop每10秒的操作包括：
 
 ## 内存
 
-<img src="C:\Users\misaki\AppData\Roaming\Typora\typora-user-images\image-20210524171725149.png" alt="image-20210524171725149"  />
+<img src="Innodb.assets/image-20210524171725149-1621933504334.png" alt="image-20210524171725149"  />
 
 
 
 ### LRU List
 
-<img src="https://dev.mysql.com/doc/refman/5.6/en/images/innodb-buffer-pool-list.png" align="left"/>
+<img src="Innodb.assets/innodb-buffer-pool-list-1621933507927.png" align="left"/>
 
 LRU list分为两个子list`New`和`Old`，`midpoint`是两个子list的分界点，`old list`占整个buffer pool的多少由参数`innodb_old_blocks_pct`决定
 
@@ -95,7 +95,7 @@ LRU算法规则：
 
 ## Checkpoint
 
-<img src="C:\Users\misaki\AppData\Roaming\Typora\typora-user-images\image-20210524182348314.png" alt="image-20210524182348314"  align="left"/>
+<img src="Innodb.assets/image-20210524182348314-1621933509900.png" alt="image-20210524182348314"  align="left"/>
 
 
 
@@ -113,7 +113,7 @@ LRU算法规则：
 
    重做日志文件不可用的情况，这时需要强制将一些页刷新回磁盘，而此时脏页是从脏页列表中选取的
 
-   <img src="C:\Users\misaki\AppData\Roaming\Typora\typora-user-images\image-20210524182908810.png" alt="image-20210524182908810" align="left" />
+   <img src="Innodb.assets/image-20210524182908810-1621933512306.png" alt="image-20210524182908810" align="left" />
 
 4. **Dirty Page too much Checkpoint**
 
@@ -127,7 +127,7 @@ LRU算法规则：
 
 对于读操作有缓冲池减少磁盘IO，那么对于写操作innodb也做了对应的操作减少磁盘IO
 
-<img src="https://dev.mysql.com/doc/refman/5.6/en/images/innodb-change-buffer.png" align="left"/>
+<img src="Innodb.assets/innodb-change-buffer-1621933513631.png" align="left"/>
 
 可以对DML操作——`INSERT`、 `DELETE` 、 `UPDATE` 都 进 行 缓 冲 ， 他 们 分 别 是 ： `Insert Buffer` 、` Delete Buffer`、`Purge buffer`。
 
@@ -155,7 +155,7 @@ change Buffer的使用需要同时满足以下两个条件：
 
 **解决方案**：
 
-<img src="https://images2017.cnblogs.com/blog/1113510/201707/1113510-20170726195345906-321682602.png" alt="img"  />
+<img src="Innodb.assets/1113510-20170726195345906-321682602-1621933515384.png" alt="img"  />
 
 doublewrite由两部分组成，一部分为内存中的doublewrite buffer，其大小为2MB，另一部分是磁盘上共享表空间(ibdata x)中连续的128个页，即2个区(extent)，大小也是2M。
 
